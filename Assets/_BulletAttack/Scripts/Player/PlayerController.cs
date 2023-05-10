@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private const string AnimatorMoving = "IsMoving";
-    private const string AnimatorSitting = "IsSitting";
     private const string AnimatorSpeed = "MovingSpeed";
 
     [SerializeField] private float _speed;
@@ -16,28 +17,54 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private IKController _ikController;
     [SerializeField] private ShootingMenu _shootingMenu;
     [SerializeField] private AmmoInventory _inventory;
+    [SerializeField] private AmmoCarrier _ammoCarrier;
+    [SerializeField] private Trigger _playerTrigger;
+    [SerializeField] private float _weaponImmobolityPause = 3f;
 
     private Transform _standartParent;
     private bool _isInWeapon;
+    private float _canMoveTime;
+    private bool _dontUpdate;
+
+    public CharacterController CharacterController => _characterController;
+
+    public event Action GotToWeapon;
+    public event Action OutOfWeapon;
 
     private void Start()
     {
         _standartParent = transform.parent;
+        _playerTrigger.OnEnter.AddListener(OnTriggered);
+    }
+
+    public void ResetPlayer()
+    {
+        _isInWeapon = false;
+
+        _ikController.SetStandart();
+        _ikController.Deactivate();
+        StopAllCoroutines();
     }
 
     private void Update()
     {
-        if (_joystick.Horizontal != 0 || _joystick.Vertical != 0)
+        if (_dontUpdate)
+            return;
+
+        if (Time.time > _canMoveTime && (_joystick.Horizontal != 0 || _joystick.Vertical != 0))
         {
             if (_isInWeapon)
             {
+                _isInWeapon = false;
+
                 _shootingMenu.CloseMenu();
                 _characterController.enabled = true;
-                _isInWeapon = false;
 
                 _ikController.SetStandart();
                 _ikController.Deactivate();
                 transform.parent = _standartParent;
+                StopAllCoroutines();
+                OutOfWeapon?.Invoke();
             }
             else
             {
@@ -54,21 +81,39 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool(AnimatorMoving, false);
         }
     }
-    private void OnTriggerEnter(Collider other)
+    
+
+    private void OnTriggered(Collider other)
     {
         var weapon = other.GetComponent<Weapon>();
 
-        if (weapon != null)
+        if (weapon != null && _ammoCarrier.IsCarryingSomething == false)
         {
             _characterController.enabled = false;
-            transform.position = weapon.StandPoint.position;
-            transform.forward = weapon.StandPoint.forward;
 
-            _ikController.SetIKPoint(weapon.LeftHandPoint, weapon.RightHandPoint);
-            _ikController.Activate();
             _isInWeapon = true;
             _shootingMenu.OpenMenu(_inventory);
             transform.parent = weapon.transform;
+            _canMoveTime = Time.time + _weaponImmobolityPause;
+            StartCoroutine(WeaponStandingRoutine(weapon));
+            GotToWeapon?.Invoke();
         }
+    }
+
+    private IEnumerator WeaponStandingRoutine(Weapon weapon)
+    {
+        _dontUpdate = true;
+
+        _animator.SetBool(AnimatorMoving, true);
+
+        transform.forward = (weapon.StandPoint.position - transform.position).normalized;
+        yield return transform.DOMove(weapon.StandPoint.position, 0.3f).WaitForCompletion();
+        _animator.SetBool(AnimatorMoving, false);
+        yield return transform.DORotate(Quaternion.LookRotation(weapon.StandPoint.forward).eulerAngles, 0.15f);
+        
+        _ikController.SetIKPoint(weapon.LeftHandPoint, weapon.RightHandPoint);
+        _ikController.Activate();
+
+        _dontUpdate = false;
     }
 }

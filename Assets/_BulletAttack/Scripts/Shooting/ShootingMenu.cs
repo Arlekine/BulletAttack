@@ -1,22 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootingMenu : MonoBehaviour
 {
+    public Action Shot;
+
     [SerializeField] private ShootingButton _buttonPrefab;
     [SerializeField] private Transform _buttonsParent;
-    [SerializeField] private Weapon _weapon;
     [SerializeField] private float _shootingPause;
 
+    private Weapon _weapon;
     private AmmoInventory _inventory;
     private Dictionary<AmmoData, ShootingButton> _currentAmmo = new Dictionary<AmmoData, ShootingButton>();
     private AmmoData _currentShootingAmmo;
-    
+
+    public void SetWeapon(Weapon weapon)
+    {
+        _weapon = weapon;
+    }
+
     [EditorButton]
     public void OpenMenu(AmmoInventory inventory)
     {
-        _inventory = inventory;
+        if (_currentAmmo.Count > 0)
+            CloseMenu();
+
+            _inventory = inventory;
         var ammoTypes = inventory.GetAllAmmos();
 
         foreach (var ammoData in ammoTypes)
@@ -37,12 +48,16 @@ public class ShootingMenu : MonoBehaviour
         {
             Destroy(_currentAmmo[data].gameObject);
         }
+
         _currentAmmo.Clear();
     }
 
     private void StartShooting(AmmoData data)
     {
-        if (_currentShootingAmmo != null)
+        if (_currentShootingAmmo != null || _weapon == null || _weapon.HasTargets == false)
+            return;
+
+        if (_inventory[data] == 0)
             return;
 
         _currentShootingAmmo = data;
@@ -73,6 +88,9 @@ public class ShootingMenu : MonoBehaviour
     {
         while (true)
         {
+            if (_weapon == null || _weapon.HasTargets == false)
+                break;
+
             Shoot(_currentShootingAmmo);
             yield return new WaitForSeconds(_shootingPause);
         }
@@ -89,5 +107,7 @@ public class ShootingMenu : MonoBehaviour
         {
             StopAllCoroutines();
         }
+
+        Shot?.Invoke();
     }
 }

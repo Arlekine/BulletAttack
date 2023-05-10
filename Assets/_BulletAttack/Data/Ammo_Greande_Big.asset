@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bb9dc5e3e45274bb2a3f388482bd56, type: 3}
+  m_Name: Ammo_Greande_Big
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: 131442a0affc8f949b45f11db7b6c0cd, type: 3}
+  _carriedAmmo: {fileID: 7182522258064978771, guid: a8921d66f9edd3948b5a04c15d5c9bbb, type: 3}
+  _projectile: {fileID: 8889249722812245953, guid: 194d71d901953c440a1b0027954c3f47, type: 3}
+  _collectable: {fileID: 1464164001945623919, guid: 290b035b26a34be4eb2dea0a93059fee, type: 3}

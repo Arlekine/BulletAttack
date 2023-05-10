@@ -39,13 +39,13 @@ namespace DitzelGames.FastIK
         public float SnapBackStrength = 1f;
 
 
-        protected float[] BonesLength; //Target to Origin
-        protected float CompleteLength;
-        protected Transform[] Bones;
-        protected Vector3[] Positions;
-        protected Vector3[] StartDirectionSucc;
-        protected Quaternion[] StartRotationBone;
-        protected Quaternion StartRotationTarget;
+        [HideInInspector] public float[] BonesLength; //Target to Origin
+        [HideInInspector] public float CompleteLength;
+        [HideInInspector] public Transform[] Bones;
+        [HideInInspector] public Vector3[] Positions;
+        [HideInInspector] public Vector3[] StartDirectionSucc;
+        [HideInInspector] public Quaternion[] StartRotationBone;
+        [HideInInspector] public Quaternion StartRotationTarget;
         protected Transform Root;
 
 
@@ -55,7 +55,18 @@ namespace DitzelGames.FastIK
             Init();
         }
 
-        void Init()
+        public void Copy(FastIKFabric target)
+        {
+            Bones = target.Bones;
+            CompleteLength = target.CompleteLength;
+            /*Positions = target.Positions;
+            StartDirectionSucc = target.StartDirectionSucc;
+            StartRotationBone = target.StartRotationBone;
+            StartRotationTarget = target.StartRotationTarget;*/
+        }
+
+        [EditorButton]
+        public void Init()
         {
             //initial array
             Bones = new Transform[ChainLength + 1];

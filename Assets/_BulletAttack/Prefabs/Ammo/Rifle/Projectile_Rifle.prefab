@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8724001458809068176}
   - component: {fileID: 8724001458809068179}
   - component: {fileID: 8724001458809068180}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile_Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e09e9f9612d186f4b86fc96691c0c9f6, type: 3}
       propertyPath: m_Name
       value: WPN_cal_7_62x39
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e09e9f9612d186f4b86fc96691c0c9f6, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: e09e9f9612d186f4b86fc96691c0c9f6, type: 3}
       propertyPath: m_IsActive

@@ -7,6 +7,20 @@ public class AmmoInventory : MonoBehaviour
 
     public int this[AmmoData data] => _ammos[data];
 
+    public int AmmoTotalCount
+    {
+        get
+        {
+            int totalCount = 0;
+            foreach (var ammoData in GetAllAmmos())
+            {
+                totalCount += _ammos[ammoData];
+            }
+
+            return totalCount;
+        }
+    }
+
     public List<AmmoData> GetAllAmmos()
     {
         var ammos = new List<AmmoData>();

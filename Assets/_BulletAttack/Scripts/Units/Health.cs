@@ -9,9 +9,7 @@ public class Health : MonoBehaviour
     public Action<Health> OnHit;
 
     private const int MinHealth = 0;
-    private const int MaxHealth = 100;
-
-    [Range(MinHealth, MaxHealth)]
+    
     [SerializeField]
     private int _startHealth = 100;
 
@@ -19,8 +17,12 @@ public class Health : MonoBehaviour
     [SerializeField] private int _currentHealth;
 
     public int CurrentHealth => _currentHealth;
+    public int StartHealth => _startHealth;
+    public float HealthNormalized => (float)_currentHealth / (float)_startHealth;
 
     public bool IsDead { get; private set; }
+
+
 
     private void Awake()
     {

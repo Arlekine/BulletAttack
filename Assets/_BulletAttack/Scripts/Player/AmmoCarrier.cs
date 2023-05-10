@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using DitzelGames.FastIK;
 using UnityEngine;
@@ -14,9 +16,12 @@ public class AmmoCarrier : MonoBehaviour
 
     [Space] 
     [SerializeField] private IKController _ikController;
- 
+    [SerializeField] private Transform _leftHandCarry;
+    [SerializeField] private Transform _rightHandCarry;
     private float _currentHeight;
     private int _currentRowIndex;
+
+    private AmmoCollectingPoint _currentAmmoCollectingPoint;
 
     private List<CarriedAmmo> _carriedAmmos = new List<CarriedAmmo>();
 
@@ -29,36 +34,46 @@ public class AmmoCarrier : MonoBehaviour
 
     public void Place(CarriedAmmo ammo)
     {
-        ammo.MoveToCarriedPosition(_carriedParent, new Vector3(_currentHeight, 0f, _defaultAmmoZPositions[_currentRowIndex]), _toPositionMoveTime);
-
-        _currentRowIndex++;
         if (_currentRowIndex >= _defaultAmmoZPositions.Length)
         {
             _currentRowIndex = 0;
-            _currentHeight += ammo.VerticalSize;
+            _currentHeight += _carriedAmmos.Last().HalfVerticalSize + ammo.HalfVerticalSize;
         }
 
+        ammo.MoveToCarriedPosition(_carriedParent, new Vector3(_currentHeight, 0f, _defaultAmmoZPositions[_currentRowIndex]), _toPositionMoveTime);
+
         _carriedAmmos.Add(ammo);
+        _currentRowIndex++;
 
         if (_carriedAmmos.Count == 1)
         {
             _ikController.Activate();
+            _ikController.SetIKPoint(_leftHandCarry, _rightHandCarry, true);
         }
     }
 
-    public void PutAllToWeapon(Transform weapon)
+    public IEnumerator PutAllToWeaponRoutine(AmmoCollectingPoint weapon)
     {
-        float offset = 0f;
-
-        for (int i = _carriedAmmos.Count - 1; i >= 0; i--)
+        while (_carriedAmmos.Count > 0)
         {
-            _carriedAmmos[i].MoveToWeaponPosition(weapon, _toPositionMoveTime, offset);
-            offset += 0.02f;
+            _carriedAmmos[^1].MoveToWeaponPosition(weapon.AmmoCollectionPoint, _toPositionMoveTime);
+
+            _currentRowIndex--;
+
+            if (_currentRowIndex < 0)
+            {
+                _currentRowIndex = _defaultAmmoZPositions.Length - 1;
+                _currentHeight -= _carriedAmmos[^1].VerticalSize;
+            }
+
+            _carriedAmmos.RemoveAt(_carriedAmmos.Count - 1);
+
+            yield return new WaitForSeconds(0.02f);
         }
 
-        _carriedAmmos.Clear();
-
+        weapon.StopCollecting();
         _ikController.Deactivate();
+        _ikController.SetStandart();
 
         _currentHeight = 0;
         _currentRowIndex = 0;
@@ -68,9 +83,23 @@ public class AmmoCarrier : MonoBehaviour
     {
         var collectingPoint = other.GetComponent<AmmoCollectingPoint>();
 
-        if (collectingPoint != null)
+        if (collectingPoint != null && _currentAmmoCollectingPoint == null)
         {
-            PutAllToWeapon(collectingPoint.AmmoCollectionPoint);
+            collectingPoint.StartCollecting(_toPositionMoveTime);
+            _currentAmmoCollectingPoint = collectingPoint;
+            StartCoroutine(PutAllToWeaponRoutine(collectingPoint));
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var collectingPoint = other.GetComponent<AmmoCollectingPoint>();
+
+        if (collectingPoint != null && _currentAmmoCollectingPoint == collectingPoint)
+        {
+            collectingPoint.StopCollecting();
+            _currentAmmoCollectingPoint = null;
+            StopAllCoroutines();
         }
     }
 }

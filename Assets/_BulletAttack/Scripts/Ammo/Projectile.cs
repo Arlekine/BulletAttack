@@ -7,8 +7,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected float _maxLifetime;
     [SerializeField] protected Rigidbody _rigidbody;
 
-    private Vector3 _direction;
-    private float _creationTime;
+    protected Vector3 _direction;
+    protected float _creationTime;
 
     public void SetMoveDirection(Vector3 direction)
     {
@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
         transform.forward = _direction;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         _rigidbody.MovePosition(_rigidbody.position + _direction * _speed * Time.fixedDeltaTime);
 
@@ -25,14 +25,19 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         var health = other.GetComponent<Health>();
 
         if (health != null)
         {
-            health.Hit(_damage);
+            OnTargetHitted(health);
             Destroy(gameObject);
         }
+    }
+
+    protected virtual void OnTargetHitted(Health health)
+    {
+        health.Hit(_damage);
     }
 }

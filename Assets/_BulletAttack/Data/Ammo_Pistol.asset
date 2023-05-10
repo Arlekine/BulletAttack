@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bb9dc5e3e45274bb2a3f388482bd56, type: 3}
+  m_Name: Ammo_Pistol
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 21300000, guid: ba0616ea0474b454a8347e099fd1be26, type: 3}
+  _carriedAmmo: {fileID: 6582631935308365904, guid: e91ad4fa1b1af3747b77547056618ca4, type: 3}
+  _projectile: {fileID: 4760547384237941787, guid: 7bbe397b579df1845af7b15d068098aa, type: 3}
+  _collectable: {fileID: 2141324606648296258, guid: 12dac12930c3a424c82476f5f51755c3, type: 3}

@@ -14,9 +14,11 @@ public class Weapon : MonoBehaviour
     public Transform LeftHandPoint => _leftHandPoint;
     public Transform RightHandPoint => _rightHandPoint;
 
+    public bool HasTargets => _enemies.Count > 0;
+
     public void SetEnemies(List<Health> enemies)
     {
-        _enemies = enemies;
+        _enemies.AddRange(enemies);
 
         foreach (var health in _enemies)
         {
@@ -30,7 +32,7 @@ public class Weapon : MonoBehaviour
         if (_enemies.Count > 0)
         {
             var closestEnemy = GetClosestEnemy();
-            var shootingDirection = (closestEnemy.transform.position - transform.position).normalized;
+            var shootingDirection = ((closestEnemy.transform.position + Vector3.up * 1.5f) - transform.position).normalized;
 
             var rotation = Quaternion.LookRotation(shootingDirection).eulerAngles;
             rotation.x = 0;
@@ -39,7 +41,7 @@ public class Weapon : MonoBehaviour
             transform.eulerAngles = rotation;
 
             var newProjectile = Instantiate(ammo.Projectile, _shootingPoint.position, Quaternion.identity);
-            newProjectile.SetMoveDirection(shootingDirection);
+            newProjectile.SetMoveDirection(((closestEnemy.transform.position + Vector3.up * 1.5f) - _shootingPoint.position).normalized);
             newProjectile.transform.parent = transform.parent;
         }
     }

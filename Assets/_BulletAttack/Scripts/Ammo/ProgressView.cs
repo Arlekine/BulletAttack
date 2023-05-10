@@ -1,17 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ProgressView : MonoBehaviour
+public abstract class ProgressView : MonoBehaviour
 {
-    [SerializeField] private Slider _progressBar;
     [SerializeField] private CanvasGroup _canvasGroup;
 
-    public void SetProgress(float progress)
-    {
-        var progressNormalized = Mathf.Clamp01(progress);
-        _progressBar.normalizedValue = progressNormalized;
-    }
+    public abstract void SetProgress(float progress);
 
     public void Show()
     {

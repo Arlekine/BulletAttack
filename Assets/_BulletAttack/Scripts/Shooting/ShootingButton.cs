@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ShootingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -9,6 +10,7 @@ public class ShootingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public Action<AmmoData> OnButtonUpressed;
 
     [SerializeField] private TextMeshProUGUI _ammoCount;
+    [SerializeField] private Image _ammoIcon;
     
     private AmmoData _currentData;
     private bool _isInteractable;
@@ -17,6 +19,7 @@ public class ShootingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         _currentData = ammoData;
         UpdateAmmoCount(ammoCount);
+        _ammoIcon.sprite = ammoData.Icon;
         Activate();
     }
 
