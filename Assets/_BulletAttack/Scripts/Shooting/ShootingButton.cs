@@ -41,7 +41,10 @@ public class ShootingButton : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         if (_isInteractable)
+        {
+            SoundManager.Instance.UiClick.Play();
             OnButtonPressed?.Invoke(_currentData);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)

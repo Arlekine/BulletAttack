@@ -59,6 +59,7 @@ public class UpgradeView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void OnClick()
     {
+        SoundManager.Instance.Upgrade.Play();
         var currentPrice = _currentUpgrade.NextPrice;
         _currentUpgrade.InvokeUpgrade();
         _currentMoney.Subtract(currentPrice);

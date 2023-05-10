@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        _standartOffset = _offset = transform.position - _target.position;
+        _standartOffset = _offset = transform.position;
         _standartRotation = transform.eulerAngles;
 
         _player.PlayerController.GotToWeapon += OnGotToWeapon;

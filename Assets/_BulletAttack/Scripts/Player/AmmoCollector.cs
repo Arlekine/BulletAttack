@@ -13,6 +13,7 @@ public class AmmoCollector : MonoBehaviour
     [SerializeField] private float _additionalSpeed;
 
     private List<CollectableAmmo> _currentCollectables = new List<CollectableAmmo>();
+    private float _lastSoundPlay;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,6 +41,12 @@ public class AmmoCollector : MonoBehaviour
 
     private void OnAmmoCollected(CollectableAmmo ammo)
     {
+        if (Time.time - _lastSoundPlay > 0.1f)
+        {
+            _lastSoundPlay = Time.time;
+            SoundManager.Instance.Collect.Play();
+        }
+
         ammo.Collected -= OnAmmoCollected;
         _currentCollectables.Remove(ammo);
         _ammoInventory.AddAmmo(ammo.AmmoData);

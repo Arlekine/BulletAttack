@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Ammo_Pistol
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: ba0616ea0474b454a8347e099fd1be26, type: 3}
+  _muzzleFire: {fileID: 19819752, guid: 8deb1def3de25b04b8371070fbb372fe, type: 3}
+  _shotSound: {fileID: 8300000, guid: c922c34f559ead440a273a13a924cfc7, type: 3}
   _carriedAmmo: {fileID: 6582631935308365904, guid: e91ad4fa1b1af3747b77547056618ca4, type: 3}
   _projectile: {fileID: 4760547384237941787, guid: 7bbe397b579df1845af7b15d068098aa, type: 3}
   _collectable: {fileID: 2141324606648296258, guid: 12dac12930c3a424c82476f5f51755c3, type: 3}

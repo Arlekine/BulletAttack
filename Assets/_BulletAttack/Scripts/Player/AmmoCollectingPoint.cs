@@ -29,6 +29,7 @@ public class AmmoCollectingPoint : MonoBehaviour
         {
             var modelScale = _model.localScale.x;
             yield return _model.DOScale((modelScale + 0.1f), 0.05f).WaitForCompletion();
+            SoundManager.Instance.WeaponAmmo.Play();
 
             yield return null;
             yield return null;

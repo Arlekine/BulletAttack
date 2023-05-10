@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected float _speed;
     [SerializeField] protected float _maxLifetime;
     [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected ParticleSystem _hitEffect;
 
     protected Vector3 _direction;
     protected float _creationTime;
@@ -38,6 +39,12 @@ public class Projectile : MonoBehaviour
 
     protected virtual void OnTargetHitted(Health health)
     {
+        if (_hitEffect != null)
+        {
+            var effect = Instantiate(_hitEffect, transform.position, Quaternion.identity);
+            effect.transform.parent = transform.parent;
+        }
+
         health.Hit(_damage);
     }
 }

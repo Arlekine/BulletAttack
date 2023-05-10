@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Ammo_Rifle
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: 7de35151d0e05484fb4f6894731eb0f5, type: 3}
+  _muzzleFire: {fileID: 19819752, guid: 8deb1def3de25b04b8371070fbb372fe, type: 3}
+  _shotSound: {fileID: 8300000, guid: c922c34f559ead440a273a13a924cfc7, type: 3}
   _carriedAmmo: {fileID: 2571308532124745200, guid: d1fbb5e6dc4440643a28aac678f064a7, type: 3}
   _projectile: {fileID: 8724001458809068179, guid: 47888134bf638244bb1c6f362ca74563, type: 3}
   _collectable: {fileID: 3526477038117729207, guid: 5d76ae162d8055e4e837153ac329ff95, type: 3}

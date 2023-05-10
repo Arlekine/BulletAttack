@@ -32,6 +32,16 @@ public class AmmoCarrier : MonoBehaviour
         _ikController.Deactivate();
     }
 
+    public void Clear()
+    {
+        foreach (var carriedAmmo in _carriedAmmos)
+        {
+            Destroy(carriedAmmo.gameObject);
+        }
+
+        _carriedAmmos.Clear();
+    }
+
     public void Place(CarriedAmmo ammo)
     {
         if (_currentRowIndex >= _defaultAmmoZPositions.Length)

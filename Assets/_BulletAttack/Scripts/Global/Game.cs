@@ -68,7 +68,13 @@ public class Game : MonoBehaviour
         };
 
         _context.UI.MoneyCollector.Init(_gameData.Money);
-        
+
+        _context.UI.HapticButton.SetState(_gameData.HapticOn);
+        _context.UI.SoundButton.SetState(_gameData.SoundOn);
+
+        _context.UI.HapticButton.OnSwitch += HapticSwitch;
+        _context.UI.SoundButton.OnSwitch += SoundSwitch;
+
         AudioListener.volume = _gameData.SoundOn ? 1f : 0f;
     }
 
@@ -113,6 +119,7 @@ public class Game : MonoBehaviour
 
     private void StartCurrentLevel()
     {
+        _context.UI.SettingsMenu.SetActive(false);
         _context.UI.Joystick.Pressed -= StartCurrentLevel;
         _context.UI.UpgradesMenu.Close();
 
@@ -123,6 +130,7 @@ public class Game : MonoBehaviour
 
     private void ShowWinMenu()
     {
+        SoundManager.Instance.Win.Play();
         _gameData.CurrentLevel++;
 
         if (_gameData.CurrentLevel >= _levels.Length)
@@ -135,6 +143,7 @@ public class Game : MonoBehaviour
 
     private void ShowLoseMenu()
     {
+        SoundManager.Instance.Loose.Play();
         _context.UI.LosePanel.Open();
     }
 

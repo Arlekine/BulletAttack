@@ -32,6 +32,7 @@ public class Level : MonoBehaviour
     {
         _currentContext = context;
         
+        _currentContext.Player.AmmoCollector.gameObject.SetActive(true);
         _currentContext.UI.WallHp.SetProgress(1f);
         _currentContext.Player.PlayerController.CharacterController.enabled = true;
 
@@ -62,6 +63,8 @@ public class Level : MonoBehaviour
 
     private void OnWavesCleared()
     {
+        _currentContext.Player.AmmoInventory.Clear();
+        _currentContext.Spawner.StopSpawing();
         _currentContext.Player.transform.parent = null;
         _currentContext.UI.WallHp.Hide();
         _currentContext.UI.ShootingMenu.CloseMenu();
@@ -70,12 +73,15 @@ public class Level : MonoBehaviour
         _currentContext.Player.PlayerController.ResetPlayer();
         _currentContext.Camera.OnOutOfWeapon();
         _currentContext.UI.WallHp.Hide();
+        _currentContext.Player.AmmoCarrier.Clear();
+        _currentContext.Player.AmmoCollector.gameObject.SetActive(false);
 
         Win?.Invoke();
     }
 
     private void Lose(Health health)
     {
+        _currentContext.Player.AmmoInventory.Clear();
         _currentContext.Spawner.StopSpawing();
         _currentContext.Player.transform.parent = null;
         _currentContext.UI.WallHp.Hide();
@@ -85,6 +91,8 @@ public class Level : MonoBehaviour
         _currentContext.Player.IkController.SetStandart();
         _currentContext.Player.PlayerController.ResetPlayer();
         _currentContext.UI.WallHp.Hide();
+        _currentContext.Player.AmmoCarrier.Clear();
+        _currentContext.Player.AmmoCollector.gameObject.SetActive(false);
 
         Lost?.Invoke();
     }

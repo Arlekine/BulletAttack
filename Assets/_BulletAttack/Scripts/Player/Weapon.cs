@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform _standPoint;
     [SerializeField] private Transform _leftHandPoint;
     [SerializeField] private Transform _rightHandPoint;
+    [SerializeField] private AudioSource _shotSound;
 
     private List<Health> _enemies = new List<Health>();
 
@@ -43,6 +44,13 @@ public class Weapon : MonoBehaviour
             var newProjectile = Instantiate(ammo.Projectile, _shootingPoint.position, Quaternion.identity);
             newProjectile.SetMoveDirection(((closestEnemy.transform.position + Vector3.up * 1.5f) - _shootingPoint.position).normalized);
             newProjectile.transform.parent = transform.parent;
+
+            var muzzle = Instantiate(ammo.MuzzleFire, _shootingPoint);
+            muzzle.transform.position = _shootingPoint.position;
+            muzzle.transform.forward = _shootingPoint.forward;
+
+            _shotSound.clip = ammo.ShotSound;
+            _shotSound.Play();
         }
     }
 

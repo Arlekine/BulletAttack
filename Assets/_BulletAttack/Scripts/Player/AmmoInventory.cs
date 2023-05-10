@@ -52,4 +52,9 @@ public class AmmoInventory : MonoBehaviour
         else
             _ammos[ammo] = 1;
     }
+
+    public void Clear()
+    {
+        _ammos.Clear();
+    }
 }
