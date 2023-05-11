@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool _dontUpdate;
 
     public CharacterController CharacterController => _characterController;
+    public Trigger PlayerTrigger => _playerTrigger;
 
     public event Action GotToWeapon;
     public event Action OutOfWeapon;

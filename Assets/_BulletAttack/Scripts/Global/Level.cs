@@ -31,7 +31,10 @@ public class Level : MonoBehaviour
     public void StartLevel(Context context)
     {
         _currentContext = context;
-        
+
+        _currentContext.Player.AmmoCollector.gameObject.SetActive(true);
+        _currentContext.Player.PlayerController.PlayerTrigger.gameObject.SetActive(true);
+
         _currentContext.Player.AmmoCollector.gameObject.SetActive(true);
         _currentContext.UI.WallHp.SetProgress(1f);
         _currentContext.Player.PlayerController.CharacterController.enabled = true;
@@ -75,6 +78,7 @@ public class Level : MonoBehaviour
         _currentContext.UI.WallHp.Hide();
         _currentContext.Player.AmmoCarrier.Clear();
         _currentContext.Player.AmmoCollector.gameObject.SetActive(false);
+        _currentContext.Player.PlayerController.PlayerTrigger.gameObject.SetActive(false);
 
         Win?.Invoke();
     }
@@ -93,6 +97,8 @@ public class Level : MonoBehaviour
         _currentContext.UI.WallHp.Hide();
         _currentContext.Player.AmmoCarrier.Clear();
         _currentContext.Player.AmmoCollector.gameObject.SetActive(false);
+        _currentContext.Player.PlayerController.CharacterController.enabled = false;
+        _currentContext.Player.PlayerController.PlayerTrigger.gameObject.SetActive(false);
 
         Lost?.Invoke();
     }

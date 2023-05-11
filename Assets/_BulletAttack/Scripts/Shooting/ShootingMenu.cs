@@ -27,7 +27,8 @@ public class ShootingMenu : MonoBehaviour
         if (_currentAmmo.Count > 0)
             CloseMenu();
 
-            _inventory = inventory;
+        _currentShootingAmmo = null;
+        _inventory = inventory;
         var ammoTypes = inventory.GetAllAmmos();
 
         foreach (var ammoData in ammoTypes)

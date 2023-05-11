@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MoneyCollector : MonoBehaviour
 {
+    [SerializeField] private Canvas _canvas;
     [SerializeField] private MoneyForEnemyView _collectedMoneyPrefab;
     [SerializeField] private RectTransform _moneySpawnZone;
     [SerializeField] private RectTransform _moneyMovePoint;
@@ -26,7 +27,7 @@ public class MoneyCollector : MonoBehaviour
     private void OnEnemyDead(Enemy enemy)
     {
         var newMoney = Instantiate(_collectedMoneyPrefab, _moneySpawnZone);
-        newMoney.RectTransform.anchoredPosition = _mainCamera.WorldToScreenPoint(enemy.transform.position);
+        newMoney.RectTransform.anchoredPosition = _mainCamera.WorldToScreenPoint(enemy.transform.position) / _canvas.transform.localScale.x;
         newMoney.Show(_moneyMovePoint).onComplete += () =>
         {
             _currentMoney.AddMoney(enemy.Currency);

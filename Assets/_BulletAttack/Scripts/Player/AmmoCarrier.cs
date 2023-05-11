@@ -19,8 +19,10 @@ public class AmmoCarrier : MonoBehaviour
     [SerializeField] private IKController _ikController;
     [SerializeField] private Transform _leftHandCarry;
     [SerializeField] private Transform _rightHandCarry;
+
     private float _currentHeight;
     private int _currentRowIndex;
+    private AmmoCollectingPoint _currentWeapon;
 
     private AmmoCollectingPoint _currentAmmoCollectingPoint;
 
@@ -35,10 +37,17 @@ public class AmmoCarrier : MonoBehaviour
 
     public void Clear()
     {
+        StopAllCoroutines();
         foreach (var carriedAmmo in _carriedAmmos)
         {
             Destroy(carriedAmmo.gameObject);
         }
+
+        if (_currentWeapon != null)
+            _currentWeapon.StopCollecting();
+
+        _currentHeight = 0;
+        _currentRowIndex = 0;
 
         _carriedAmmos.Clear();
     }
@@ -89,14 +98,16 @@ public class AmmoCarrier : MonoBehaviour
 
         _currentHeight = 0;
         _currentRowIndex = 0;
+        _currentWeapon = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         var collectingPoint = other.GetComponent<AmmoCollectingPoint>();
 
-        if (collectingPoint != null && _currentAmmoCollectingPoint == null)
+        if (collectingPoint != null && _currentAmmoCollectingPoint == null && IsCarryingSomething)
         {
+            _currentWeapon = collectingPoint;
             collectingPoint.StartCollecting(_toPositionMoveTime);
             _currentAmmoCollectingPoint = collectingPoint;
             StartCoroutine(PutAllToWeaponRoutine(collectingPoint));
@@ -109,6 +120,7 @@ public class AmmoCarrier : MonoBehaviour
 
         if (collectingPoint != null && _currentAmmoCollectingPoint == collectingPoint)
         {
+            _currentWeapon = null;
             collectingPoint.StopCollecting();
             _currentAmmoCollectingPoint = null;
             StopAllCoroutines();

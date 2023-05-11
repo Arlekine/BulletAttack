@@ -29,7 +29,10 @@ public class ShotgunProjectile : Projectile
         {
             OnTargetHitted(health);
             _currentTargetHitted++;
-            
+
+            var effect = Instantiate(_hitEffect, transform.position, Quaternion.identity);
+            effect.transform.parent = transform.parent;
+
             if (_currentTargetHitted >= _maxTargetHitted)
                 Destroy(gameObject);
         }

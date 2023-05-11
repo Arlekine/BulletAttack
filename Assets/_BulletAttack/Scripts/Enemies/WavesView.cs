@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WavesView : MonoBehaviour
 {
@@ -13,12 +14,18 @@ public class WavesView : MonoBehaviour
     [SerializeField] private TMP_Text _finalWaveText;
     [SerializeField] private ProgressView _progressView;
 
+    [Space] 
+    [SerializeField] private Image _fillImage;
+    [SerializeField] private Color _beforeWaveColor;
+    [SerializeField] private Color _waveColor;
+
     private bool _isBooping;
     private Sequence _boopingRoutine;
 
     public void SetWave(int currentWave, int wavesCount)
     {
         _wavesText.text = String.Format(WavesTextSample, currentWave, wavesCount);
+        _fillImage.color = currentWave == 0 ? _beforeWaveColor : _waveColor;
     }
 
     public void UpdateTimer(float currentTime, float timeNormalized)

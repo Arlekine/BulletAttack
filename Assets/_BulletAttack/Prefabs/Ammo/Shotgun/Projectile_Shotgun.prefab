@@ -79,7 +79,7 @@ MonoBehaviour:
   _speed: 20
   _maxLifetime: 0.7
   _rigidbody: {fileID: 7179308571898422067}
-  _hitEffect: {fileID: 0}
+  _hitEffect: {fileID: 19873388, guid: 185035e4680c4b344b62bf5ace4674b8, type: 3}
   _collider: {fileID: 8208911576915844750}
   _minDamage: 30
   _maxDamage: 80

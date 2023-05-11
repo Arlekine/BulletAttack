@@ -720,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &108075204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -759,6 +759,9 @@ MonoBehaviour:
   _timerText: {fileID: 8274122}
   _finalWaveText: {fileID: 863306438}
   _progressView: {fileID: 108075206}
+  _fillImage: {fileID: 787547823}
+  _beforeWaveColor: {r: 0, g: 0.6, b: 0.7529412, a: 1}
+  _waveColor: {r: 0.56078434, g: 0, b: 0.7529412, a: 1}
 --- !u!114 &108075206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,6 +1756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 507782709}
+  - component: {fileID: 507782710}
   m_Layer: 0
   m_Name: ---LOGIC---
   m_TagString: Untagged
@@ -1780,6 +1784,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &507782710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507782708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d6bab988d4c8143a38e839543e4fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetFramerate: 30
 --- !u!1 &526895242
 GameObject:
   m_ObjectHideFlags: 0
@@ -2617,6 +2634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1911b60b53ddec54a9fc274b09e35915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 1709298925}
   _collectedMoneyPrefab: {fileID: 7775428101990064108, guid: 645d7ef275690ef4c80d69422568881f, type: 3}
   _moneySpawnZone: {fileID: 743395282}
   _moneyMovePoint: {fileID: 1436624349}
@@ -2657,7 +2675,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -5, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5235,8 +5253,8 @@ RectTransform:
   m_Father: {fileID: 1152231581}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6264,6 +6282,22 @@ PrefabInstance:
     - target: {fileID: 2284630012475027567, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166600951292278641, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166600951292306263, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166600951292341215, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6166600951292358153, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aedc8bd9c0edb974fb59f65ea608e5b3, type: 3}
