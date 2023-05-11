@@ -77,11 +77,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 0
   _speed: 20
-  _maxLifetime: 0.5
+  _maxLifetime: 0.7
   _rigidbody: {fileID: 7179308571898422067}
+  _hitEffect: {fileID: 0}
   _collider: {fileID: 8208911576915844750}
   _minDamage: 30
-  _maxDamage: 200
+  _maxDamage: 80
   _maxTargetHitted: 10
-  _startRadius: 1.5
-  _endRadius: 4
+  _startRadius: 1
+  _endRadius: 2

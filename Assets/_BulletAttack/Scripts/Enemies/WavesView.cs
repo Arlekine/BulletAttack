@@ -23,7 +23,7 @@ public class WavesView : MonoBehaviour
 
     public void UpdateTimer(float currentTime, float timeNormalized)
     {
-        print(currentTime);
+        //print(currentTime);
         _timerText.text = String.Format(TimerSample, currentTime);
         _progressView.SetProgress(timeNormalized);
 

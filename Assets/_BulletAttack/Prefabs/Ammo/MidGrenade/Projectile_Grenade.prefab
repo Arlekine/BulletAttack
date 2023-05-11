@@ -78,10 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f2cf5912fb2ca4abe806f79f91d3cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 150
+  _damage: 100
   _speed: 20
   _maxLifetime: 10
   _rigidbody: {fileID: 1509332361191592852}
+  _hitEffect: {fileID: 0}
   _explosionPrefab: {fileID: 4021880992226008613, guid: d708d7dc5ece23e4197533cf48715de2, type: 3}
   _explosionRadius: 2
   _explosionForce: 2500
