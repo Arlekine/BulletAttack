@@ -87,7 +87,15 @@ public class PlayerController : MonoBehaviour
     {
         var weapon = other.GetComponent<Weapon>();
 
-        if (weapon != null && _ammoCarrier.IsCarryingSomething == false)
+        if (weapon != null)
+        {
+            SetWeapon(weapon);
+        }
+    }
+
+    public void SetWeapon(Weapon weapon)
+    {
+        if (_isInWeapon == false && _ammoCarrier.IsCarryingSomething == false)
         {
             _characterController.enabled = false;
 
@@ -98,6 +106,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(WeaponStandingRoutine(weapon));
             GotToWeapon?.Invoke();
         }
+
     }
 
     private IEnumerator WeaponStandingRoutine(Weapon weapon)

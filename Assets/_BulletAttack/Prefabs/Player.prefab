@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eeff7ae778095f46aff981896a612dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 4764630956215152808}
   _carriedParent: {fileID: 1402250291364225585}
   _defaultAmmoZPositions:
   - 0

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class AmmoCollectingPoint : MonoBehaviour
 {
+    [SerializeField] private Weapon _weapon;
     [SerializeField] private Transform _ammoCollectionPoint;
     [SerializeField] private Collider _blockingCollider;
     [SerializeField] private Transform _model;
 
     public Transform AmmoCollectionPoint => _ammoCollectionPoint;
+
+    public Weapon Weapon => _weapon;
+
 
     public void StartCollecting(float offset)
     {

@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 472cef31b9430cd47b26dfe98fe5c07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weapon: {fileID: 2630373192441161738}
   _ammoCollectionPoint: {fileID: 6554850038222425535}
   _blockingCollider: {fileID: 6554850036455612273}
   _model: {fileID: 6482314043000642167}

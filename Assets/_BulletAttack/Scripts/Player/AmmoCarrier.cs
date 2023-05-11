@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class AmmoCarrier : MonoBehaviour
 {
+    [SerializeField] private Player _player;
     [SerializeField] private Transform _carriedParent;
     [SerializeField] private float[] _defaultAmmoZPositions;
     [SerializeField] private float[] _bigAmmoZPositions;
@@ -81,6 +82,7 @@ public class AmmoCarrier : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
+        _player.PlayerController.SetWeapon(weapon.Weapon);
         weapon.StopCollecting();
         _ikController.Deactivate();
         _ikController.SetStandart();
