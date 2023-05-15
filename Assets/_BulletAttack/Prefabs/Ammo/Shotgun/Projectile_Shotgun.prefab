@@ -81,8 +81,8 @@ MonoBehaviour:
   _rigidbody: {fileID: 7179308571898422067}
   _hitEffect: {fileID: 19873388, guid: 185035e4680c4b344b62bf5ace4674b8, type: 3}
   _collider: {fileID: 8208911576915844750}
-  _minDamage: 30
-  _maxDamage: 80
+  _minDamage: 20
+  _maxDamage: 50
   _maxTargetHitted: 10
   _startRadius: 1
   _endRadius: 2

@@ -272,7 +272,7 @@ MonoBehaviour:
   _collectionTriggerCollider: {fileID: 5831683920633480108}
   _model: {fileID: 7533914726249746143}
   _collectionProgressView: {fileID: 5246927984641588506}
-  _collectionTime: 2
+  _collectionTime: 3
   _restoreTime: 15
 --- !u!136 &5831683920633480108
 CapsuleCollider:
