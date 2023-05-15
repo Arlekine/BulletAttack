@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     [Min(0.1f)][SerializeField] private float _minSpeed;
     [Min(0.1f)][SerializeField] private int _currency;
     [Min(0.5f)][SerializeField] private float _corpseDisappearOffsetInSeconds = 3f;
+    [SerializeField] private float _stopDistance = 1.5f;
 
     [Space]
     [SerializeField] private Health _health;
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _stopDistance = Random.Range(_stopDistance - 0.5f, _stopDistance + 0.5f);
         _health.OnDead += OnDead;
         _animator.SetFloat(AnimatorMovingSpeed, _speed / SpeedToAnimatorSpeedParameter);
         _animator.SetFloat(AnimatorMovingOffset, Random.Range(0f, 1f));
@@ -69,6 +71,9 @@ public class Enemy : MonoBehaviour
     {
         _currentTarget = health;
         _runDirection = runDirection;
+
+        if (_attacker is Shooter)
+            _attacker.SetAttackTarget(_currentTarget);
     }
 
     private void FixedUpdate()
@@ -79,6 +84,18 @@ public class Enemy : MonoBehaviour
 
             transform.forward = _runDirection.normalized;
             _rigidbody.MovePosition(_rigidbody.position + _runDirection * _speed * Time.deltaTime);
+
+            if (_attacker is not Shooter)
+                return;
+
+            var pointOfTarget = _currentTarget.GetComponent<Collider>().ClosestPoint(transform.position);
+
+            if (Vector3.Distance(pointOfTarget, transform.position) <= _stopDistance)
+            {
+                if (_attacker is not Shooter)
+                    _attacker.SetAttackTarget(_currentTarget);
+                _currentTarget = null;
+            }
         }
         else
         {
@@ -90,9 +107,10 @@ public class Enemy : MonoBehaviour
     {
         var possibleTarget = other.GetComponent<Health>();
 
-        if (possibleTarget != null && possibleTarget == _currentTarget)
+        if (_currentTarget != null && possibleTarget != null && possibleTarget == _currentTarget)
         {
-            _attacker.SetAttackTarget(_currentTarget);
+            if (_attacker is not Shooter)
+                _attacker.SetAttackTarget(_currentTarget);
             _currentTarget = null;
         }
     }

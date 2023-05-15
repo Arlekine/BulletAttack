@@ -131,7 +131,9 @@ public class Game : MonoBehaviour
     private void ShowWinMenu()
     {
         SoundManager.Instance.Win.Play();
-        _gameData.CurrentLevel++;
+
+        if (_currentLevel is not TutorialLevel)
+            _gameData.CurrentLevel++;
 
         if (_gameData.CurrentLevel >= _levels.Length)
             _gameData.CurrentLevel = 0;

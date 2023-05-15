@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
     {
         if (_hitEffect != null)
         {
-            var effect = Instantiate(_hitEffect, health.transform.position + Vector3.up, Quaternion.identity);
+            var effect = Instantiate(_hitEffect, transform.position, Quaternion.identity);
             effect.transform.parent = transform.parent;
         }
 

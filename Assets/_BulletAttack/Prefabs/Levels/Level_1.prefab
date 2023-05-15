@@ -365,8 +365,8 @@ MonoBehaviour:
   _waves:
   - _timeBeforeWaveInSeconds: 15
     _enemyVariants:
-    - _enemy: {fileID: 1372038256, guid: 3164a56ca45de0241850783bbd1bea4f, type: 3}
-      _amount: 10
+    - _enemy: {fileID: 2197061162807785765, guid: 2364b486f0d41ba4db6b0bfcd123cdbe, type: 3}
+      _amount: 15
   - _timeBeforeWaveInSeconds: 40
     _enemyVariants:
     - _enemy: {fileID: 1372038256, guid: 3164a56ca45de0241850783bbd1bea4f, type: 3}
